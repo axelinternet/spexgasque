@@ -24,6 +24,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
+    vendor: ['vue-typer'],
     extend (config, ctx) {
       if (ctx.dev && ctx.isClient) {
         config.module.rules.push({
@@ -34,5 +35,8 @@ module.exports = {
         })
       }
     }
-  }
+  },
+  plugins: [
+    { src: '~/plugins/vue-typer', ssr: false }
+  ]
 }

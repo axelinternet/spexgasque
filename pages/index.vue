@@ -1,38 +1,33 @@
 <template>
   <section class="container">
     <div>
-      <logo/>
-      <h1 class="title">
-        spexgasque-nuxt
-      </h1>
-      <h2 class="subtitle">
-        Stupid project for a stupid gasque
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
-      </div>
+      <Typer />
     </div>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Typer from '~/components/Typer.vue'
 
 export default {
   components: {
-    Logo
+    Typer
   }
 }
 </script>
 
 <style>
+body {
+  background-color: #1E1E1E;
+}
 .container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  max-width: 90vw;
+  margin: auto;
 }
 
 .title {
