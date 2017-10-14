@@ -2,6 +2,18 @@
 
 > Stupid project for a stupid gasque
 
+## More stupid ideas
+Take text input to begin phase 2 (username?)
+Upload picture? picture grid?
+Phase 2 with way to serious layout https://vuetifyjs.com/ or similar.
+Markdown profile? WYSIWYG editor?
+Infinite scroll: vue-mugen-scroll
+Drag and drop sorting for placement?
+
+Embed video
+https://github.com/anteriovieira/vue-youtube
+
+
 ## Build Setup
 
 ``` bash

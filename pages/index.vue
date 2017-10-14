@@ -1,17 +1,30 @@
 <template>
   <section class="container">
-    <div>
-      <Typer />
+    <div class="type-holder">
+      <Typer v-on:completed="setCompleted"/>
     </div>
+    <MainInput :complete="waitingForInput" />
   </section>
 </template>
 
 <script>
 import Typer from '~/components/Typer.vue'
+import MainInput from '~/components/MainInput.vue'
 
 export default {
   components: {
-    Typer
+    Typer,
+    MainInput
+  },
+  data () {
+    return {
+      waitingForInput: false
+    }
+  },
+  methods: {
+    setCompleted: function () {
+      this.waitingForInput = true
+    }
   }
 }
 </script>
@@ -20,6 +33,7 @@ export default {
 body {
   background-color: #1E1E1E;
 }
+
 .container {
   min-height: 100vh;
   display: flex;
@@ -28,6 +42,7 @@ body {
   text-align: center;
   max-width: 90vw;
   margin: auto;
+  flex-direction: column;
 }
 
 .title {
@@ -50,4 +65,10 @@ body {
 .links {
   padding-top: 15px;
 }
+
+.type-holder {
+  height: 2em;
+  width: 100%;
+}
+
 </style>

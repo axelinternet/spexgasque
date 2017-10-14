@@ -1,27 +1,31 @@
 <template>
   <div>
     <vue-typer
-      :text='["Jaha, Axel. Du verkar.. intelligent?", 
-      "Men ändå så vill du bli bättre vän med Poya, Anton och Viktor?",
-      "Har du ens lyssnat på något vi sagt ikväll? Antar inte det, men jag är inte chockad, när man pratar med dig så har du koncentrationen som en guldfisk." ,
-      "3 sekunder in på ett samtal så är du redan på väg mot baren, som den smutsiga alkolist du är. Mannen, du har problem. Jag ska ge dig min pappas nummer efter roasten, så slipper du dricka ensam iallafall.",
-      "Men oavsett om du fortsätter med dina smutsiga fasoner så gör inte det så mycket, man får ju ändå ut lika mycket av att prata dig som med sina blommor. Skillnaden är ju att dom verkar lyssna."
-      ]'
-      :repeat='Infinity'
+      :text='["Jaha, så det är dags för den här skitgasquen igen.",
+      "Vad heter du?"]'
+      :repeat='0'
       :shuffle='false'
       initial-action='typing'
       :pre-type-delay='500'
       :type-delay='70'
-      :pre-erase-delay='1000'
+      :pre-erase-delay='500'
       :erase-delay='250'
       erase-style='clear'
       :erase-on-complete='false'
       caret-animation='blink'
+      @completed='onCompleted'
     ></vue-typer>
   </div>
 </template>
 
 <script>
+export default {
+  methods: {
+    onCompleted: function () {
+      this.$emit('completed')
+    }
+  }
+}
 </script>
 
 <style>
@@ -41,7 +45,7 @@ h1 {
 }
 
 .vue-typer .custom.caret {
-  width: 10px;
+  width: 1px;
   background-color: #3F51B5;
 }
 </style>
