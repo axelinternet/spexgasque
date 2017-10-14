@@ -13,8 +13,10 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "firebase": "^4.5.1",
     "nuxt": "^1.0.0-rc11",
-    "vue-typer": "^1.0.6"
+    "vue-typer": "^1.0.6",
+    "vuefire": "^1.4.4"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

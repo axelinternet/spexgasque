@@ -1,16 +1,26 @@
 <template>
   <section class="container">
     <div class="type-holder">
-      <Typer v-on:completed="setCompleted"/>
+      <Typer v-on:completed="setCompleted" :message="typethis"/>
     </div>
-    <MainInput :complete="waitingForInput" />
+    <MainInput :inputReady="readyForInput" v-on:userUpdate="setUserdata" :questionType="username"/>
   </section>
 </template>
 
 <script>
 import Typer from '~/components/Typer.vue'
 import MainInput from '~/components/MainInput.vue'
+/* import * as firebase from 'firebase'
 
+const firebaseApp = firebase.initializeApp({
+  apiKey: 'AIzaSyB_WYmfB9wlMf5QXwiteKQvQEYmP18KkK8',
+  authDomain: 'spexgasque.firebaseapp.com',
+  databaseURL: 'https://spexgasque.firebaseio.com',
+  projectId: 'spexgasque',
+  storageBucket: '',
+  messagingSenderId: '296550712740'
+})
+const db = firebaseApp.database() */
 export default {
   components: {
     Typer,
@@ -18,14 +28,34 @@ export default {
   },
   data () {
     return {
-      waitingForInput: false
+      readyForInput: false,
+      username: '',
+      typethis: ['skitgasque', 'vad heter du?']
     }
   },
   methods: {
     setCompleted: function () {
-      this.waitingForInput = true
+      this.readyForInput = true
+    },
+    updateAttendantInFirebase: function (attendantName) {
+      this.$firebaseRefs.attendant.push({
+        name: attendantName,
+        email: 'nisse@internet.com'
+      })
+    },
+    setUserdata: function (data) {
+      console.log('setUserData: ', data)
+      if (data.questionType === 'username') {
+        this.username = data.data
+      }
     }
-  }
+  }/* ,
+  firebase: {
+    attendant: {
+      source: db.ref('/attendants'),
+      asObject: true
+    }
+  } */
 }
 </script>
 

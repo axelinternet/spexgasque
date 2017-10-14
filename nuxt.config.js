@@ -37,6 +37,7 @@ module.exports = {
     }
   },
   plugins: [
-    { src: '~/plugins/vue-typer', ssr: false }
+    { src: '~/plugins/vue-typer', ssr: false },
+    '~/plugins/vue-fire'
   ]
 }

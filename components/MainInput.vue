@@ -1,6 +1,8 @@
 <template>
   <div class="input-holder">
-    <input v-if="complete === true" autofocus></input>
+    <form v-if="inputReady === true" v-on:submit.prevent="getFormValues">
+        <input  v-model="userdata" autofocus></input>
+    </form>
   </div>
 </template>
 
@@ -8,9 +10,16 @@
 export default {
 
   name: 'main-input',
-  props: ['complete'],
+  props: ['inputReady', 'questionType'],
   data () {
     return {
+      userdata: ''
+    }
+  },
+  methods: {
+    getFormValues: function () {
+      console.log(this.questionType)
+      this.$emit('userUpdate', {questionType: 'username', data: this.userdata})
     }
   }
 }

@@ -1,8 +1,7 @@
 <template>
   <div>
     <vue-typer
-      :text='["Jaha, så det är dags för den här skitgasquen igen.",
-      "Vad heter du?"]'
+      :text=message
       :repeat='0'
       :shuffle='false'
       initial-action='typing'
@@ -24,7 +23,8 @@ export default {
     onCompleted: function () {
       this.$emit('completed')
     }
-  }
+  },
+  props: ['message']
 }
 </script>
 
