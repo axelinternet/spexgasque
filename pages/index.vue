@@ -3,13 +3,33 @@
     <div class="type-holder">
       <Typer v-on:completed="setCompleted" :message="typethis"/>
     </div>
-    <MainInput :inputReady="readyForInput" v-on:userUpdate="setUserdata" :questionType="username"/>
+    <MainInput v-if="question === 'username'"
+      :inputReady="readyForInput"
+      v-on:userUpdate="setUserdata"
+      key="username" 
+    />
+    <MainInput v-else-if="question === 'fish'" 
+      :inputReady="readyForInput"
+      v-on:userUpdate="setUserdata"  
+      key="fish" 
+    />
+    <MainInput v-else-if="question === 'trams'" 
+      :inputReady="readyForInput" 
+      v-on:userUpdate="setUserdata"
+      key="trams"  
+    />
+    <MainInput v-else
+      :inputReady="readyForInput" 
+      v-on:userUpdate="setUserdata" 
+      key="sista" 
+    />
   </section>
 </template>
 
 <script>
 import Typer from '~/components/Typer.vue'
 import MainInput from '~/components/MainInput.vue'
+import RockRoll from '~/assets/rickroll.js'
 /* import * as firebase from 'firebase'
 
 const firebaseApp = firebase.initializeApp({
@@ -29,12 +49,14 @@ export default {
   data () {
     return {
       readyForInput: false,
-      username: '',
+      question: 'username',
+      answer: {},
       typethis: ['skitgasque', 'vad heter du?']
     }
   },
   methods: {
     setCompleted: function () {
+      console.log('tjohej completed')
       this.readyForInput = true
     },
     updateAttendantInFirebase: function (attendantName) {
@@ -44,9 +66,23 @@ export default {
       })
     },
     setUserdata: function (data) {
-      console.log('setUserData: ', data)
-      if (data.questionType === 'username') {
-        this.username = data.data
+      // Control user flow through questioins
+      console.log('hej!', data)
+      if (this.question === 'username') {
+        this.answer.username = data.data
+        this.question = 'fish'
+        this.readyForInput = false
+        this.typethis = ['coolt', 'vad heter din fisk?']
+      } else if (this.question === 'fish') {
+        this.answer.fish = data.data
+        this.question = 'trams'
+        this.readyForInput = false
+        this.typethis = ['trams', 'vilken är din bästa sång?']
+      } else if (this.question === 'trams') {
+        this.question = 'sista'
+        this.answer.trams = data.data
+        this.readyForInput = false
+        this.typethis = RockRoll
       }
     }
   }/* ,
@@ -61,7 +97,7 @@ export default {
 
 <style>
 body {
-  background-color: #1E1E1E;
+  background-color: #1F1F1F;
 }
 
 .container {
