@@ -30,7 +30,7 @@
 import Typer from '~/components/Typer.vue'
 import MainInput from '~/components/MainInput.vue'
 import RockRoll from '~/assets/rickroll.js'
-/* import * as firebase from 'firebase'
+import * as firebase from 'firebase'
 
 const firebaseApp = firebase.initializeApp({
   apiKey: 'AIzaSyB_WYmfB9wlMf5QXwiteKQvQEYmP18KkK8',
@@ -40,7 +40,8 @@ const firebaseApp = firebase.initializeApp({
   storageBucket: '',
   messagingSenderId: '296550712740'
 })
-const db = firebaseApp.database() */
+const db = firebaseApp.database()
+
 export default {
   components: {
     Typer,
@@ -51,7 +52,8 @@ export default {
       readyForInput: false,
       question: 'username',
       answer: {},
-      typethis: ['skitgasque', 'vad heter du?']
+      typethis: ['Jaha', 'så var det dags för den här jävla skitgasquen igen då.', 'kul att någon orkat bry sig osv...',
+        'Datumet är den 9:e December', 'Lokalen är hemlig', 'Men det är väl trevlig i alla fall.', '...', 'Som vanligt är det över och underambitiöst samtidigt i alla fall.', 'Det kommer inte vara gratis men inte heller så dyrt.', 'Klädkoden är SOMMARFIN....KLÄNNING. Inga undantag ges....(Emil)', 'När börjar gasquen? Vi vet inte. Det slumpas någon gång i November', 'Vi har dock ett antal regler', '1. Alla är sångledare (två i taget) motsols', '2. Gasquens starttid slumpas', '3. Yngsta medlemen får sitta vid ett eget barnbord', '4. Toto-recall infaller när mer än halva gasquen sjunger Totos Africa', '0. I slutet av varje gasque väljs en ny regel som gäller från och med nästa gasque.', 'Aja, nog om det.', 'Tänkte ta in lite data om er i alla fall. Det blir kul?', 'Se dock till att du fyller i anmälningskoden som ges i slutet annars kan vi inte ta in din anmälan', 'vad heter du?']
     }
   },
   methods: {
@@ -60,10 +62,7 @@ export default {
       this.readyForInput = true
     },
     updateAttendantInFirebase: function (attendantName) {
-      this.$firebaseRefs.attendant.push({
-        name: attendantName,
-        email: 'nisse@internet.com'
-      })
+      this.$firebaseRefs.attendant.push(this.answer)
     },
     setUserdata: function (data) {
       // Control user flow through questioins
@@ -72,26 +71,41 @@ export default {
         this.answer.username = data.data
         this.question = 'fish'
         this.readyForInput = false
-        this.typethis = ['coolt', 'vad heter din fisk?']
+        this.typethis = ['coolt', 'Någon ska ju heta det också antar jag...', 'Jag har dock alltid undrat..', 'Vad heter din fisk?']
       } else if (this.question === 'fish') {
         this.answer.fish = data.data
         this.question = 'trams'
         this.readyForInput = false
-        this.typethis = ['trams', 'vilken är din bästa sång?']
+        this.typethis = ['trams.. Min fisk heter Fiske-Lina..', 'Nu har vi kommit till punkten där du skriver in din mail']
       } else if (this.question === 'trams') {
         this.question = 'sista'
         this.answer.trams = data.data
         this.readyForInput = false
-        this.typethis = RockRoll
+        let skrivin = ['Skriv in anmälningskoden:']
+        let RockPlus = RockRoll.concat(skrivin)
+        this.typethis = RockPlus
+      } else if (this.question === 'sista') {
+        console.log(data.data)
+        if (data.data !== 'rimliganmälningskod') {
+          this.question = 'sista'
+          let fel = ['Feeeeel svar']
+          let RockPlus = fel.concat(RockRoll)
+          this.typethis = RockPlus
+        } else {
+          this.answer.sista = data.data
+          this.updateAttendantInFirebase()
+          this.readyForInput = false
+          this.typethis = ['tack.. Det var en bra kod. Hej då', 'Ses på gasquen', ':(              ']
+        }
       }
     }
-  }/* ,
+  },
   firebase: {
     attendant: {
       source: db.ref('/attendants'),
       asObject: true
     }
-  } */
+  }
 }
 </script>
 
